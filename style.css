@@ -1,3 +1,7 @@
+html, body {
+    overflow-x: hidden;
+}
+
 html {
     background-color: #f9f9f9;
 }
@@ -5,7 +9,8 @@ html {
 body {
     margin: 0;
     font-family: 'Pretendard Variable', sans-serif;
-    /* background-color: #f9f9f9; */
+    background-color: #FFF6E9;
+    position: relative;
     display: flex;
     justify-content: center;
 }
@@ -22,16 +27,17 @@ body {
     background-image: url('img-bg/bg_img_top.png');
     background-size: cover;
     background-position: center;
-    z-index: -1;
+    z-index: 5;
 }
 
 .container {
     width: 100%;
     max-width: 375px;
-    /* background-color: white; */
+    /* background-color: #FFF6E9; */
     padding: 12px;
     box-sizing: border-box;
     margin-top: 356px;
+    z-index: 10;
 }
 
 .main-info-card {

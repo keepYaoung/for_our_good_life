@@ -266,5 +266,21 @@
     </div>
     <script src="js/data.js?v=1.7"></script>
     <script src="js/main.js?v=1.7"></script>
+    <script>
+    // 모바일에서 위로 스크롤할 때 pull-to-refresh(리프레시) 방지
+    let maybePrevent = false;
+    window.addEventListener('touchstart', function(e) {
+      if (window.scrollY === 0) {
+        maybePrevent = true;
+      } else {
+        maybePrevent = false;
+      }
+    }, {passive: false});
+    window.addEventListener('touchmove', function(e) {
+      if (maybePrevent && e.touches[0].clientY > 0) {
+        e.preventDefault();
+      }
+    }, {passive: false});
+    </script>
 </body>
 </html> 
