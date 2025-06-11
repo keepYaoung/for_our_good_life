@@ -1,0 +1,741 @@
+html {
+    background-color: #f9f9f9;
+}
+
+body {
+    margin: 0;
+    font-family: 'Pretendard Variable', sans-serif;
+    /* background-color: #f9f9f9; */
+    display: flex;
+    justify-content: center;
+}
+
+.bg-image-top {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    min-width: 360px;
+    max-width: 500px;
+    height: 563px; /* 이미지 높이에 맞게 조정해야 할 수 있습니다. */
+    background-image: url('img-bg/bg_img_top.png');
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}
+
+.container {
+    width: 100%;
+    max-width: 375px;
+    /* background-color: white; */
+    padding: 12px;
+    box-sizing: border-box;
+    margin-top: 356px;
+}
+
+.main-info-card {
+    background: white;
+    border-radius: 20px;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    display: flex;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.main-info-bottom {
+    width: 100%;
+    box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.15);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.main-info-header {
+    align-self: stretch;
+    padding: 20px 20px 12px 20px;
+    justify-content: space-between;
+    align-items: center;
+    display: inline-flex;
+}
+
+.wedding-hall-name {
+    color: black;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.wedding-hall-type {
+    padding: 4px 8px;
+    background: #0083FF;
+    border-radius: 99px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.couple-info {
+    align-self: stretch;
+    padding: 0 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    display: inline-flex;
+}
+
+.groom-info, .bride-info {
+    flex-direction: column;
+    gap: 8px;
+    display: inline-flex;
+}
+
+.groom-info {
+    align-items: flex-start;
+}
+
+.bride-info {
+    align-items: flex-end;
+}
+
+.couple-info .role {
+    color: #A1918B;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.couple-info .name {
+    color: #1C1C1C;
+    font-size: 36px;
+    font-weight: 400;
+}
+
+.couple-info .birth {
+    color: #A1918B;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.heart-icon {
+    flex: 1 1 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wedding-details {
+    align-self: stretch;
+    padding: 20px;
+    background: white;
+    justify-content: space-between;
+    align-items: flex-start;
+    display: inline-flex;
+}
+
+.detail-item {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 8px;
+    display: inline-flex;
+}
+
+.detail-item .label {
+    color: #A1918B;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.detail-item .value {
+    color: #1C1C1C;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.remaining-seats-info {
+    align-self: stretch;
+    padding: 0px 20px 20px 20px;
+    background: white;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    justify-content: space-between;
+    align-items: center;
+    display: inline-flex;
+}
+
+.seats-text {
+    color: black;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.status-badge {
+    padding: 4px 8px;
+    background: #0083FF;
+    border-radius: 99px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    display: flex;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.contact-section {
+    padding: 24px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.contact-group {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.contact-person {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.contact-person .person-name {
+    color: #1C1C1C;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.contact-person .actions {
+    display: flex;
+    gap: 20px;
+}
+
+.action-btn {
+    font-size: 24px;
+    text-decoration: none;
+    color: #C4C4C4;
+}
+
+.action-btn img {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+}
+
+.parents-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.parents-title {
+    color: #A1918B;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    margin: 0;
+}
+
+.person-role {
+    color: #1C1C1C;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.person-role .person-name {
+    /* margin-left: 4px; */
+}
+.person-role::before {
+    content: attr(data-role);
+    color: #A1918B;
+    font-size: 14px;
+    font-weight: 400;
+    display: block;
+    text-align: center;
+    margin-bottom: 4px;
+}
+
+#contact-groom-father .person-role::before {
+    content: '아버지';
+}
+#contact-groom-mother .person-role::before {
+    content: '어머니';
+}
+#contact-bride-father .person-role::before {
+    content: '아버지';
+}
+#contact-bride-mother .person-role::before {
+    content: '어머니';
+}
+
+.calendar-section {
+    padding: 24px 0;
+}
+
+.calendar-container {
+    width: 375px;
+    height: 240px;
+    position: relative;
+    margin: auto;
+}
+
+.calendar-heart-1, .calendar-heart-2 {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background-image: url('img/elipse.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.calendar-heart-1 {
+    left: 97.5px;
+    top: 30px;
+    transform: rotate(6deg);
+}
+
+.calendar-heart-2 {
+    left: 77.5px;
+    top: 45px;
+    transform: rotate(-24deg);
+}
+
+.calendar-day {
+    width: 125px;
+    height: 162px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    position: absolute;
+    top: 39px;
+    border-top: 1px #9C9C9C solid;
+    border-bottom: 1px #9C9C9C solid;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 4px;
+    display: inline-flex;
+}
+
+.calendar-day:nth-child(3) { left: 0; }
+.calendar-day:nth-child(4) {
+    left: 125px;
+    outline: 1px #9C9C9C solid;
+    outline-offset: -1px;
+}
+.calendar-day:nth-child(5) { left: 250px; }
+
+
+.day-name {
+    align-self: stretch;
+    text-align: center;
+    color: #3C3C3C;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.day-number-container {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    display: flex;
+}
+
+.month {
+    text-align: right;
+    color: #3C3C3C;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.day {
+    text-align: center;
+    color: #3C3C3C;
+    font-size: 100px;
+    font-weight: 400;
+    line-height: 110px;
+}
+
+.gallery-section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.gallery-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.location-section {
+    padding: 48px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.section-title {
+    color: #A1918B;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.location-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.location-name {
+    color: #1C1C1C;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.location-address {
+    color: #727272;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.location-buttons {
+    display: flex;
+    gap: 16px;
+    margin-top: 12px;
+}
+
+.location-btn {
+    padding: 8px 12px;
+    background: white;
+    border-radius: 99px;
+    outline: 1px #E7E7E7 solid;
+    text-decoration: none;
+    color: #1C1C1C;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.location-btn .icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+.map-container {
+    width: 100%;
+    height: 200px;
+    margin-top: 16px;
+}
+
+.map-container img {
+    width: 360px;
+    height: 200px;
+    border-radius: 8px;
+    display: block;
+}
+
+.navigation-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.nav-btn {
+    padding: 8px 12px;
+    background: white;
+    border-radius: 99px;
+    outline: 1px #E7E7E7 solid;
+    text-decoration: none;
+    color: #1C1C1C;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.gift-section, .money-section, .guestbook-section {
+    padding: 48px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.section-header {
+    text-align: center;
+}
+
+.section-header h2 {
+    color: #1C1C1C;
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0 0 12px 0;
+}
+
+.section-header p {
+    color: #727272;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.gift-banner img {
+    width: 360px;
+    height: 100px;
+    border-radius: 8px;
+}
+
+.accordion {
+    width: 343px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.accordion-item {
+    border-radius: 12px;
+    outline: 1px #EAEAEA solid;
+    overflow: hidden;
+}
+
+.accordion-header {
+    background: white;
+    padding: 12px;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    color: #1C1C1C;
+}
+
+.accordion-icon {
+    transition: transform 0.3s ease;
+}
+
+.accordion-icon img {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s ease;
+}
+
+.accordion-icon.open img {
+    transform: rotate(180deg);
+}
+
+.accordion-content {
+    padding: 4px 10px 4px 10px;
+    background: #fbfbfb;
+    display: none;
+}
+
+.account-info {
+    padding: 12px 4px;
+    border-bottom: 1px solid #EAEAEA;
+}
+
+.account-info:last-child {
+    border-bottom: none;
+}
+
+.account-holder {
+    font-size: 16px;
+    font-weight: 500;
+    color: #1C1C1C;
+    margin: 0 0 8px 0;
+}
+
+.account-number {
+    font-size: 14px;
+    color: #727272;
+    margin: 0;
+}
+
+.accordion-content p {
+    margin: 0 0 8px 0;
+}
+
+.guestbook-form {
+    width: 343px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.guestbook-form .form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.guestbook-form input,
+.guestbook-form textarea {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #EAEAEA;
+    background-color: #FFFFFF;
+    font-family: 'Pretendard Variable', sans-serif;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.guestbook-form input::placeholder,
+.guestbook-form textarea::placeholder {
+    color: #A1918B;
+}
+
+
+.guestbook-form textarea {
+    height: 80px;
+    resize: none;
+}
+
+.guestbook-form button {
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    background-color: #1C1C1C;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.guestbook-messages {
+    width: 343px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.guestbook-message {
+    width: 311px;
+    padding: 0px 16px 0px 16px;
+    background: #FFFFFF;
+    border: 1px solid #EAEAEA;
+    border-radius: 8px;
+    color: #333;
+    font-size: 16px;
+    margin: 0;
+    word-break: break-all;
+}
+
+.guestbook-message .author {
+    font-weight: 600;
+    margin-top: 16px;
+    color: #1C1C1C;
+}
+
+.guestbook-message .message {
+    color: #3C3C3C;
+    white-space: pre-wrap;
+    margin-top: 0;
+    margin-bottom: 16px;
+
+}
+
+.guestbook-message .message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.guestbook-message .timestamp {
+    font-size: 12px;
+    color: #A1918B;
+}
+
+.footer {
+    padding: 24px;
+    text-align: center;
+    color: #222222;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.couple-divider {
+    flex: 1 1 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 10px;
+}
+
+.divider-line {
+    flex: 1;
+    height: 1px;
+    background-color: #000;
+}
+
+.divider-icon {
+    width: 6px;
+    height: 6px;
+    background-color: #000;
+    transform: rotate(45deg);
+}
+
+.card-divider {
+    width: 100%;
+    height: 1px;
+    background-color: #e5e7eb;
+}
+
+.couple-separator {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 10px;
+}
+
+.couple-separator .line {
+    flex: 1;
+    border-bottom: 1.5px dotted #A1918B;
+}
+
+.couple-separator img {
+    width: 24px;
+    height: 24px;
+}
+
+.info-divider, .ticket-divider {
+    display: none; /* Hide all dividers by default */
+    width: 100%;
+    height: 1px;
+    background-color: #f0f0f0;
+    margin: 20px 0;
+    position: relative;
+}
+
+.couple-info + .info-divider,
+.wedding-details + .ticket-divider {
+    display: block; /* Only show dividers that follow a content block */
+}
+
+.ticket-divider::before,
+.ticket-divider::after {
+    content: '';
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.ticket-divider::before {
+    left: -15px;
+}
+.ticket-divider::after {
+    right: -15px;
+}
