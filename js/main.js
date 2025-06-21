@@ -57,18 +57,18 @@ document.addEventListener("DOMContentLoaded", function() {
     const brideMessageEl = document.getElementById("bride-message");
     if (brideMessageEl) brideMessageEl.href = `sms:${weddingData.bride.phone}`;
 
-    // Parents contact
+    // Parents contact - 이름만 표시 (역할 제거)
     const groomFatherEl = document.querySelector("#contact-groom-father .person-name");
-    if (groomFatherEl) groomFatherEl.textContent = `아버지 ${weddingData.groom.father}`;
+    if (groomFatherEl) groomFatherEl.textContent = weddingData.groom.father; // "아버지" 제거
 
     const groomMotherEl = document.querySelector("#contact-groom-mother .person-name");
-    if (groomMotherEl) groomMotherEl.textContent = `어머니 ${weddingData.groom.mother}`;
+    if (groomMotherEl) groomMotherEl.textContent = weddingData.groom.mother; // "어머니" 제거
 
     const brideFatherEl = document.querySelector("#contact-bride-father .person-name");
-    if (brideFatherEl) brideFatherEl.textContent = `아버지 ${weddingData.bride.father}`;
+    if (brideFatherEl) brideFatherEl.textContent = weddingData.bride.father; // "아버지" 제거
 
     const brideMotherEl = document.querySelector("#contact-bride-mother .person-name");
-    if (brideMotherEl) brideMotherEl.textContent = `어머니 ${weddingData.bride.mother}`;
+    if (brideMotherEl) brideMotherEl.textContent = weddingData.bride.mother; // "어머니" 제거
 
     // Parents contact links
     const groomFatherCallEl = document.getElementById("groom-father-call");
@@ -114,11 +114,11 @@ document.addEventListener("DOMContentLoaded", function() {
         const bannerImg = document.createElement('img');
         bannerImg.src = weddingData.giftBannerImage;
         bannerImg.alt = 'Gift Banner';
-        bannerImg.style.cursor = 'pointer'; // 클릭 가능하다는 표시
+        bannerImg.style.cursor = 'pointer';
         
-        // 클릭 이벤트 추가
+        // 클릭 이벤트 - 전화번호 수정
         bannerImg.addEventListener('click', function() {
-            window.location.href = 'tel:055-275-275';
+            window.location.href = 'tel:055-275-2754';
         });
         
         giftBanner.appendChild(bannerImg);
@@ -313,47 +313,67 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
     
-    // --- Naver Map ---
+    // --- Naver Map with Geocoding ---
     const mapContainer = document.getElementById('map');
     if (mapContainer && window.naver && window.naver.maps) {
-        const mapOptions = {
-            center: new naver.maps.LatLng(weddingData.location.lat, weddingData.location.lng),
-            zoom: 16,
-            mapTypeControl: false,
-            scaleControl: false,
-            logoControl: false,
-            mapDataControl: false,
-            zoomControl: true,
-            zoomControlOptions: {
-                style: naver.maps.ZoomControlStyle.SMALL,
-                position: naver.maps.Position.TOP_RIGHT
+        
+        // 지오코딩으로 주소를 좌표로 변환
+        naver.maps.Service.geocode({
+            query: weddingData.location.address1 // "경남 창원시 의창구 팔용동 164-3"
+        }, function(status, response) {
+            if (status === naver.maps.Service.Status.ERROR) {
+                console.error('지오코딩 실패');
+                return;
             }
-        };
 
-        const map = new naver.maps.Map(mapContainer, mapOptions);
-
-        // 마커 추가
-        const marker = new naver.maps.Marker({
-            position: new naver.maps.LatLng(weddingData.location.lat, weddingData.location.lng),
-            map: map,
-            title: weddingData.location.name
-        });
-
-        // 정보창 추가
-        const infoWindow = new naver.maps.InfoWindow({
-            content: `<div style="width:200px;text-align:center;padding:10px;">
-                        <b>${weddingData.location.name}</b><br>
-                        ${weddingData.location.address2}
-                      </div>`
-        });
-
-        // 마커 클릭시 정보창 표시
-        naver.maps.Event.addListener(marker, 'click', function() {
-            if (infoWindow.getMap()) {
-                infoWindow.close();
-            } else {
-                infoWindow.open(map, marker);
+            if (response.v2.meta.totalCount === 0) {
+                console.error('검색 결과가 없습니다');
+                return;
             }
+
+            const item = response.v2.addresses[0];
+            const point = new naver.maps.LatLng(item.y, item.x);
+
+            // 지도 생성
+            const mapOptions = {
+                center: point,
+                zoom: 16,
+                mapTypeControl: false,
+                scaleControl: false,
+                logoControl: false,
+                mapDataControl: false,
+                zoomControl: true,
+                zoomControlOptions: {
+                    style: naver.maps.ZoomControlStyle.SMALL,
+                    position: naver.maps.Position.TOP_RIGHT
+                }
+            };
+
+            const map = new naver.maps.Map(mapContainer, mapOptions);
+
+            // 마커 추가
+            const marker = new naver.maps.Marker({
+                position: point,
+                map: map,
+                title: weddingData.location.name
+            });
+
+            // 정보창 추가
+            const infoWindow = new naver.maps.InfoWindow({
+                content: `<div style="width:200px;text-align:center;padding:10px;">
+                            <b>${weddingData.location.name}</b><br>
+                            ${weddingData.location.address1}
+                          </div>`
+            });
+
+            // 마커 클릭시 정보창 표시
+            naver.maps.Event.addListener(marker, 'click', function() {
+                if (infoWindow.getMap()) {
+                    infoWindow.close();
+                } else {
+                    infoWindow.open(map, marker);
+                }
+            });
         });
     }
 

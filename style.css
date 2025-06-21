@@ -323,6 +323,7 @@ body {
 
 #contact-groom-father .person-role::before {
     content: '아버지';
+    padding-right: 4px;
 }
 #contact-groom-mother .person-role::before {
     content: '어머니';
