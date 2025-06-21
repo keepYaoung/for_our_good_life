@@ -32,7 +32,7 @@ const weddingData = {
         address1: "경남 창원시 의창구 팔용동 164-3",
         address2: "경남 창원시 의창구 사화로17번길 11",
         phone: "055-123-4567",
-        // mapImage: "https://picsum.photos/360/200",
+        mapImage: "https://picsum.photos/360/200",
         tmapLink: "https://tmap.life/bef13dca",
         kakaomapLink: "https://kko.kakao.com/W4utP_D8FZ",
         navermapLink: "https://naver.me/59vqCJ60",
@@ -40,7 +40,7 @@ const weddingData = {
         naver: "https://naver.me/59vqCJ60",
         tmap: "https://tmap.life/bef13dca",
         tel: "055-282-1000",
-        lat: 35.23654567,
+        lat: 35.2365456,
         lng: 128.6424818,
     },
     galleryImages: [
