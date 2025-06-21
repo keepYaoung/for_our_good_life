@@ -41,7 +41,7 @@ const weddingData = {
     congratulatoryMoney: {
         groom: [
             { name: "신랑 신예준", bank: "농협", account: "302-3371-0677-81" },
-            { name: "아버지 신성일", bank: "농협", account: "3510-0566-4368-9" },
+            { name: "아버지 신성일", bank: "농협", account: "351-0566-4368-93" },
             { name: "어머니 이지안", bank: "농협", account: "302-6891-3009-31" }
         ],
         bride: [
