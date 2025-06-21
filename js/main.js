@@ -298,16 +298,11 @@ document.addEventListener("DOMContentLoaded", function() {
     // --- Navigation Links ---
     const navButtons = document.querySelectorAll('.nav-btn');
     if (navButtons.length >= 3) {
-        // 티맵
+        // 직접 링크 설정
         navButtons[0].href = "https://tmap.life/bef13dca";
-        
-        // 카카오맵
         navButtons[1].href = "https://kko.kakao.com/W4utP_D8FZ";
-        
-        // 네이버지도
         navButtons[2].href = "https://naver.me/59vqCJ60";
         
-        // 새 창에서 열기
         navButtons.forEach(btn => {
             btn.target = '_blank';
         });
@@ -370,14 +365,21 @@ document.addEventListener("DOMContentLoaded", function() {
             naver.maps.Event.addListener(marker, 'click', function() {
                 if (infoWindow.getMap()) {
                     infoWindow.close();
-                } else {
+        } else {
                     infoWindow.open(map, marker);
-                }
-            });
+        }
+    });
         });
     }
-
+    
     // Footer
     const footerTextEl = document.getElementById("footer-text");
-    if (footerTextEl) footerTextEl.textContent = weddingData.footer.madeBy;
+    if (footerTextEl) footerTextEl.innerHTML = weddingData.footer.madeBy;
+
+    // Instagram 링크 설정
+    const instagramLink = document.getElementById("instagram-link");
+    if (instagramLink) {
+        instagramLink.href = "https://www.instagram.com/sey_yeah.311/";
+        instagramLink.target = "_blank";
+    }
 });

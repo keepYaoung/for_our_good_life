@@ -32,16 +32,7 @@ const weddingData = {
         address1: "경남 창원시 의창구 팔용동 164-3",
         address2: "경남 창원시 의창구 사화로17번길 11",
         phone: "055-123-4567",
-        // mapImage: "https://picsum.photos/360/200",
-        tmapLink: "https://tmap.life/bef13dca",
-        kakaomapLink: "https://kko.kakao.com/W4utP_D8FZ",
-        navermapLink: "https://naver.me/59vqCJ60",
-        kakao: "https://kko.kakao.com/W4utP_D8FZ",
-        naver: "https://naver.me/59vqCJ60",
-        tmap: "https://tmap.life/bef13dca",
-        // tel: "055-282-1000",
-        lat: 35.236547,
-        lng: 128.642482,
+        tel: "055-282-1000",
     },
     galleryImages: [
         // 예시 이미지 삭제
@@ -60,11 +51,12 @@ const weddingData = {
         ]
     },
     guestbookMessages: [
-        { name: "홍길동", message: "두 분의 아름다운 시작을 축하합니다!", timestamp: "2024-06-08T10:00:00Z"},
-        { name: "김영희", message: "행복한 결혼 생활 되세요!", timestamp: "2024-06-09T11:30:00Z"},
-        { name: "이철수", message: "서로 아끼고 사랑하며 행복하세요.", timestamp: "2024-06-10T15:45:00Z"}
+        { name: "김동희", message: "오래오래 건강하고!", timestamp: "2024-06-08T10:00:00Z"},
+        { name: "김수미", message: "행복혀라~~~", timestamp: "2024-06-09T11:30:00Z"},
+        { name: "이호준", message: "서로 아끼고 사랑하며 행복해!.", timestamp: "2024-06-10T15:45:00Z"}
     ],
     footer: {
-        madeBy: "Made by sey_yeah.311 🙂",
+        madeBy: "Made by<br><span style='margin-top: 4px; display: block;'><strong>sey_yeah.311</strong></span>",
+        instagram: "https://www.instagram.com/sey_yeah.311/"
     }
 }; 
