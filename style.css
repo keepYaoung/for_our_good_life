@@ -685,6 +685,10 @@ body {
     display: none;
     padding: 20px;
     background-color: white;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
 }
 
 .account-info {
@@ -692,6 +696,10 @@ body {
     padding: 4px;
     /* background-color: #f9f9f9; */
     border-radius: 5px;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
 }
 
 .account-info:last-child {
@@ -757,7 +765,7 @@ body {
     border-radius: 5px;
     font-size: 14px;
     min-height: 80px;
-    resize: vertical;
+    resize: none;
     margin-bottom: 10px;
     box-sizing: border-box;
     -webkit-user-select: text;
@@ -1092,4 +1100,19 @@ img {
     /* text-align: :left; */
     max-width: 343px;
     margin: 0 auto;
+}
+
+/* 아코디언 내부 텍스트 복사 허용 */
+.accordion-content {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+.account-info {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
 }
