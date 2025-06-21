@@ -130,13 +130,11 @@ document.addEventListener("DOMContentLoaded", function() {
     const modalImg = document.getElementById('modal-image');
     const closeModal = document.querySelector('.close-modal');
 
-    // 03번 제외한 이미지 경로 생성
+    // 01번부터 16번까지 이미지 경로 생성
     const imagePaths = [];
-    for (let i = 1; i <= 17; i++) {
-        if (i !== 3) { // 03번 제외
-            const number = i.toString().padStart(2, '0');
-            imagePaths.push(`gallery/${number}.jpg`);
-        }
+    for (let i = 1; i <= 16; i++) {
+        const number = i.toString().padStart(2, '0');
+        imagePaths.push(`gallery/${number}.jpg`);
     }
 
     if (galleryGrid) {
@@ -213,7 +211,29 @@ document.addEventListener("DOMContentLoaded", function() {
     const submitGuestbookBtn = document.getElementById('submit-guestbook');
     const guestbookMessages = document.getElementById('guestbook-messages');
 
-    // 기존 방명록 메시지 표시
+    // localStorage에서 방명록 데이터 불러오기
+    function loadGuestbookFromStorage() {
+        const stored = localStorage.getItem('weddingGuestbook');
+        if (stored) {
+            try {
+                const parsedData = JSON.parse(stored);
+                weddingData.guestbookMessages = parsedData;
+            } catch (e) {
+                console.error('방명록 데이터 로드 실패:', e);
+            }
+        }
+    }
+
+    // localStorage에 방명록 데이터 저장하기
+    function saveGuestbookToStorage() {
+        try {
+            localStorage.setItem('weddingGuestbook', JSON.stringify(weddingData.guestbookMessages));
+        } catch (e) {
+            console.error('방명록 데이터 저장 실패:', e);
+        }
+    }
+
+    // 방명록 메시지 표시
     function displayGuestbookMessages() {
         if (guestbookMessages && weddingData.guestbookMessages) {
             guestbookMessages.innerHTML = '';
@@ -254,6 +274,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
             weddingData.guestbookMessages.unshift(newMessage); // 최신 메시지를 맨 위에
 
+            // localStorage에 저장
+            saveGuestbookToStorage();
+
             // 입력 필드 초기화
             if (guestNameInput) guestNameInput.value = '';
             if (guestPasswordInput) guestPasswordInput.value = '';
@@ -266,6 +289,9 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    // 페이지 로드 시 localStorage에서 방명록 불러오기
+    loadGuestbookFromStorage();
+    
     // 초기 방명록 표시
     displayGuestbookMessages();
     
@@ -287,6 +313,50 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
     
+    // --- Naver Map ---
+    const mapContainer = document.getElementById('map');
+    if (mapContainer && window.naver && window.naver.maps) {
+        const mapOptions = {
+            center: new naver.maps.LatLng(weddingData.location.lat, weddingData.location.lng),
+            zoom: 16,
+            mapTypeControl: false,
+            scaleControl: false,
+            logoControl: false,
+            mapDataControl: false,
+            zoomControl: true,
+            zoomControlOptions: {
+                style: naver.maps.ZoomControlStyle.SMALL,
+                position: naver.maps.Position.TOP_RIGHT
+            }
+        };
+
+        const map = new naver.maps.Map(mapContainer, mapOptions);
+
+        // 마커 추가
+        const marker = new naver.maps.Marker({
+            position: new naver.maps.LatLng(weddingData.location.lat, weddingData.location.lng),
+            map: map,
+            title: weddingData.location.name
+        });
+
+        // 정보창 추가
+        const infoWindow = new naver.maps.InfoWindow({
+            content: `<div style="width:200px;text-align:center;padding:10px;">
+                        <b>${weddingData.location.name}</b><br>
+                        ${weddingData.location.address2}
+                      </div>`
+        });
+
+        // 마커 클릭시 정보창 표시
+        naver.maps.Event.addListener(marker, 'click', function() {
+            if (infoWindow.getMap()) {
+                infoWindow.close();
+            } else {
+                infoWindow.open(map, marker);
+            }
+        });
+    }
+
     // Footer
     const footerTextEl = document.getElementById("footer-text");
     if (footerTextEl) footerTextEl.textContent = weddingData.footer.madeBy;

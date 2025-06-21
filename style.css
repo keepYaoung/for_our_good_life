@@ -426,7 +426,7 @@ body {
 }
 
 .gallery-section {
-    padding: 40px 0px;
+    padding: 40px 0; /* 좌우 패딩 모두 제거 */
     text-align: center;
     width: 100%;
     display: block; /* 강제 블록 배치 */
@@ -434,12 +434,12 @@ body {
 
 .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2열 그리드 */
-    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    /* gap: 10px; */
     width: 100%;
     max-width: 375px;
     margin: 0 auto;
-    padding: 0;
+    padding: 0; /* 패딩 완전 제거 */
 }
 
 .gallery-item {
@@ -448,7 +448,7 @@ body {
     position: relative;
     cursor: pointer;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    /* box-shadow: 0 2px 8px rgba(0,0,0,0.1); */
     pointer-events: auto;
     -webkit-user-select: none;
     user-select: none;
@@ -951,7 +951,7 @@ body {
     text-decoration: none;
 }
 
-/* 반응형으로 화면이 작을 때도 양쪽 끝까지 채우기 */
+/* 모바일에서는 엇갈림 효과 줄이기 */
 @media (max-width: 768px) {
     .gallery-item:nth-child(even) {
         transform: translateY(10px);
@@ -964,7 +964,7 @@ body {
     .gallery-grid {
         gap: 8px;
         max-width: 100%;
-        padding: 0 10px;
+        padding: 0; /* 모바일에서도 패딩 제거 */
     }
 }
 
