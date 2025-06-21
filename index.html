@@ -2,39 +2,50 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>예준 & 유리, 결혼합니다</title>
     <link rel="stylesheet" href="style.css?v=1.7">
     <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=24mmefzzwm&submodules=geocoder"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pretendard+Variable:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+      html, body {
+        touch-action: manipulation;
+      }
+    </style>
 </head>
 <body>
+    <!-- Header Section - 최상단 섹션 -->
+    <div class="header-section">
+        <img src="img-bg/header_img.png" alt="Header Image" class="header-img">
+    </div>
+    
     <div class="bg-image-top"></div>
     <div class="container">
         <!-- Main Info -->
-        <div class="main-info-card">
+        <!-- <div class="main-info-card-wrap">
+          <div class="main-info-card">
             <div class="main-info-header">
-                <div id="wedding-hall-name" class="wedding-hall-name"></div>
-                <div id="wedding-hall-type" class="wedding-hall-type"></div>
+              <div id="wedding-hall-name" class="wedding-hall-name"></div>
+              <div id="wedding-hall-type" class="wedding-hall-type"></div>
             </div>
             <div class="couple-info">
-                <div class="groom-info">
-                    <div class="role">Groom</div>
-                    <div id="groom-name" class="name"></div>
-                    <div id="groom-birth" class="birth"></div>
-                </div>
-                <div class="couple-separator">
-                    <div class="line"></div>
-                    <img src="img/fligt.svg" alt="airplane separator" />
-                    <div class="line"></div>
-                </div>
-                <div class="bride-info">
-                    <div class="role">Bride</div>
-                    <div id="bride-name" class="name"></div>
-                    <div id="bride-birth" class="birth"></div>
-                </div>
+              <div class="groom-info">
+                <div class="role">Groom</div>
+                <div id="groom-name" class="name"></div>
+                <div id="groom-birth" class="birth"></div>
+              </div>
+              <div class="couple-separator">
+                <div class="line"></div>
+                <img src="img/fligt.svg" alt="airplane separator" />
+                <div class="line"></div>
+              </div>
+              <div class="bride-info">
+                <div class="role">Bride</div>
+                <div id="bride-name" class="name"></div>
+                <div id="bride-birth" class="birth"></div>
+              </div>
             </div>
             <div class="info-divider"></div>
             <div class="wedding-details">
@@ -62,7 +73,8 @@
                 </div>
                 <div id="booking-status" class="status-badge"></div>
             </div>
-        </div>
+          </div>
+        </div> -->
 
         <!-- Contact -->
         <div class="contact-section">
@@ -123,12 +135,13 @@
         </div>
 
         <!-- Calendar -->
-        <div class="calendar-section">
+        <!-- <div class="calendar-section">
             <div class="calendar-container">
                 <div class="calendar-heart-1"></div>
                 <div class="calendar-heart-2"></div>
                 <div class="calendar-day">
                     <div class="day-name">금</div>
+                    <div class="calendar-divider"></div>
                     <div class="day-number-container">
                         <div class="month">9.</div>
                         <div class="day">5</div>
@@ -136,6 +149,7 @@
                 </div>
                 <div class="calendar-day wedding-day">
                      <div class="day-name">토</div>
+                     <div class="calendar-divider"></div>
                     <div class="day-number-container">
                         <div class="month">9.</div>
                         <div class="day">6</div>
@@ -143,17 +157,20 @@
                 </div>
                 <div class="calendar-day">
                      <div class="day-name">일</div>
+                     <div class="calendar-divider"></div>
                     <div class="day-number-container">
                         <div class="month">9.</div>
                         <div class="day">7</div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <!-- Gallery -->
         <div class="gallery-section">
-            <!-- Images will be injected here by main.js -->
+            <div class="gallery-grid">
+                <!-- Images will be injected here by main.js -->
+            </div>
         </div>
 
         <!-- Location -->
@@ -163,14 +180,14 @@
                 <div id="location-name" class="location-name"></div>
                 <div id="location-address1" class="location-address"></div>
                 <div id="location-address2" class="location-address"></div>
-                <div class="location-buttons">
+                <!-- <div class="location-buttons">
                     <a href="#" class="location-btn">
                         <img src="img/map.svg" alt="지도" class="icon"> 지도
                     </a>
                     <a href="#" id="location-call" class="location-btn">
                         <img src="img/phne.svg" alt="전화" class="icon"> 전화
                     </a>
-                </div>
+                </div> -->
             </div>
             <div id="map" class="map-container">
                 <!-- map image will be here -->
@@ -185,8 +202,8 @@
         <!-- Gift -->
         <div class="gift-section">
             <div class="section-header">
-                <h2>신랑 & 신부에게 선물하기</h2>
-                <p>선물하기로 축하의 마음을 전해보세요</p>
+                <h2>축하화환</h2>
+                <p>화환으로 축하의 마음을 전해보세요</p>
             </div>
             <div class="gift-banner">
                  <!-- Gift banner image can be placed here -->
@@ -264,7 +281,20 @@
              <p id="footer-text"></p>
         </footer>
     </div>
+
+    <!-- The Gallery Modal -->
+    <div id="gallery-modal" class="modal">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="modal-image">
+    </div>
+
     <script src="js/data.js?v=1.7"></script>
     <script src="js/main.js?v=1.7"></script>
+    <script>
+    // 더블 클릭(더블 탭) 줌 방지
+    window.addEventListener('dblclick', function(e) {
+      e.preventDefault();
+    }, { passive: false });
+    </script>
 </body>
 </html> 

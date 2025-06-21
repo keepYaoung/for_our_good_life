@@ -1,3 +1,7 @@
+html, body {
+    overflow-x: hidden;
+}
+
 html {
     background-color: #f9f9f9;
 }
@@ -5,12 +9,32 @@ html {
 body {
     margin: 0;
     font-family: 'Pretendard Variable', sans-serif;
-    /* background-color: #f9f9f9; */
+    background-color: #FFFBF5;
+    position: relative;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+    /* min-width: 360px;
+    max-width: 500px; */
 }
 
-.bg-image-top {
+.bg-cream {
+    position: absolute;
+    /* top: 0;
+    left: 50%; */
+    transform: translateX(-50%);
+    /* width: 100%; */
+    min-width: 360px;
+    max-width: 500px;
+}
+
+/* .bg-image-top {
     position: absolute;
     top: 0;
     left: 50%;
@@ -22,19 +46,54 @@ body {
     background-image: url('img-bg/bg_img_top.png');
     background-size: cover;
     background-position: center;
-    z-index: -1;
+    z-index: 5;
+} */
+
+/* Header Section - 최상단 섹션 */
+.header-section {
+    width: 100%;
+    text-align: center;
+    display: block;
+    flex-shrink: 0;
 }
 
+.header-img {
+    width: 375px;
+    height: 1245px;
+    display: block;
+    max-width: 375px; /* 375px 기준 */
+    margin: 0 auto;
+}
+
+/* 375px 기준으로 컨테이너 최적화 */
 .container {
-    width: 100%;
     max-width: 375px;
-    /* background-color: white; */
-    padding: 12px;
-    box-sizing: border-box;
-    margin-top: 356px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* .main-info-card, */
+.contact-section,
+.calendar-section,
+.gallery-section,
+.location-section,
+.gift-section,
+.money-section,
+.guestbook-section {
+    padding: 24px;
+    display: block;
+    flex-shrink: 0;
+}
+
+.main-info-card-wrap {
+    padding-left: 12px;
+    padding-right: 12px;
 }
 
 .main-info-card {
+    padding: 0;
     background: white;
     border-radius: 20px;
     flex-direction: column;
@@ -218,6 +277,9 @@ body {
     font-size: 24px;
     text-decoration: none;
     color: #C4C4C4;
+    pointer-events: auto;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .action-btn img {
@@ -306,7 +368,7 @@ body {
 
 .calendar-day {
     width: 125px;
-    height: 162px;
+    height: 164px;
     padding-top: 4px;
     padding-bottom: 4px;
     position: absolute;
@@ -335,10 +397,14 @@ body {
     color: #3C3C3C;
     font-size: 16px;
     font-weight: 400;
+    /* outline: 0px 0px 0px 1px #9C9C9C solid; */
+
+    /* stroke: 0px 0px 1px 0px #9C9C9C solid; */
 }
 
 .day-number-container {
     flex-direction: column;
+    width: 100%;
     justify-content: flex-start;
     align-items: center;
     display: flex;
@@ -360,14 +426,55 @@ body {
 }
 
 .gallery-section {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    padding: 40px 0px;
+    text-align: center;
+    width: 100%;
+    display: block; /* 강제 블록 배치 */
 }
 
-.gallery-image {
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2열 그리드 */
+    gap: 10px;
     width: 100%;
-    height: auto;
-    display: block;
+    max-width: 375px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.gallery-item {
+    width: 100%;
+    padding-bottom: 133%; /* 3:4 비율 */
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    pointer-events: auto;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* 엇갈린 배치 */
+.gallery-item:nth-child(even) {
+    transform: translateY(20px);
+}
+
+.gallery-item:nth-child(odd) {
+    transform: translateY(-10px);
+}
+
+.gallery-item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
 }
 
 .location-section {
@@ -382,6 +489,7 @@ body {
     color: #A1918B;
     font-size: 14px;
     font-weight: 500;
+    padding: 0px 12px;
 }
 
 .location-details {
@@ -398,7 +506,7 @@ body {
 }
 
 .location-address {
-    color: #727272;
+    color: #1C1C1C;
     font-size: 16px;
     font-weight: 500;
 }
@@ -421,6 +529,9 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
+    pointer-events: auto;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .location-btn .icon {
@@ -428,6 +539,7 @@ body {
     height: 24px;
     margin-right: 4px;
     vertical-align: middle;
+    color: #1C1C1C;
 }
 
 .map-container {
@@ -458,18 +570,21 @@ body {
     color: #1C1C1C;
     font-size: 16px;
     font-weight: 500;
+    pointer-events: auto;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
-.gift-section, .money-section, .guestbook-section {
-    padding: 48px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
+.gift-section {
+    padding: 40px 0px;
+    text-align: center;
+    width: 100%;
+    display: block; /* 강제 블록 배치 */
 }
 
 .section-header {
     text-align: center;
+    padding: 12px 0px
 }
 
 .section-header h2 {
@@ -486,64 +601,96 @@ body {
     margin: 0;
 }
 
+/* Gift Banner 375px 기준 최적화 */
+.gift-banner {
+    margin-top: 20px;
+    width: 343px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    text-align: center;
+}
+
 .gift-banner img {
-    width: 360px;
-    height: 100px;
+    width: 100%;
+    height: auto;
     border-radius: 8px;
+    /* box-shadow: 0 4px 12px rgba(0,0,0,0.1); */
+    display: block;
+    margin: 0 auto;
+    pointer-events: auto;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .accordion {
     width: 343px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    /* gap: 12px; */
 }
 
 .accordion-item {
-    border-radius: 12px;
-    outline: 1px #EAEAEA solid;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 10px;
     overflow: hidden;
 }
 
 .accordion-header {
-    background: white;
-    padding: 12px;
+    padding: 15px 20px;
+    background-color: #ffffff;
+    cursor: pointer;
+    display: flex;
     justify-content: space-between;
     align-items: center;
-    display: flex;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 500;
-    color: #1C1C1C;
+    transition: background-color 0.3s ease;
+    outline: none !important;
+    border: none !important;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-focus-ring-color: transparent;
+    user-select: none;
+    pointer-events: auto;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
-.accordion-icon {
-    transition: transform 0.3s ease;
+.accordion-header:hover {
+    background-color: #f0f0f0;
+}
+
+.accordion-header:focus,
+.accordion-header:active,
+.accordion-header:visited {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.accordion-header * {
+    outline: none !important;
+    border: none !important;
 }
 
 .accordion-icon img {
-    width: 24px;
-    height: 24px;
     transition: transform 0.3s ease;
 }
 
-.accordion-icon.open img {
-    transform: rotate(180deg);
-}
-
 .accordion-content {
-    padding: 4px 10px 4px 10px;
-    background: #fbfbfb;
     display: none;
+    padding: 20px;
+    background-color: white;
 }
 
 .account-info {
-    padding: 12px 4px;
-    border-bottom: 1px solid #EAEAEA;
+    margin-bottom: 15px;
+    padding: 4px;
+    /* background-color: #f9f9f9; */
+    border-radius: 5px;
 }
 
 .account-info:last-child {
-    border-bottom: none;
+    margin-bottom: 0;
 }
 
 .account-holder {
@@ -551,12 +698,20 @@ body {
     font-weight: 500;
     color: #1C1C1C;
     margin: 0 0 8px 0;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
 }
 
 .account-number {
     font-size: 14px;
     color: #727272;
     margin: 0;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
 }
 
 .accordion-content p {
@@ -571,50 +726,58 @@ body {
     margin-bottom: 24px;
 }
 
-.guestbook-form .form-row {
+.form-row {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
-.guestbook-form input,
-.guestbook-form textarea {
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid #EAEAEA;
-    background-color: #FFFFFF;
-    font-family: 'Pretendard Variable', sans-serif;
-    font-size: 16px;
+.form-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+    pointer-events: auto;
+}
+
+.form-textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    min-height: 80px;
+    resize: vertical;
+    margin-bottom: 10px;
     box-sizing: border-box;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+    pointer-events: auto;
 }
 
-.guestbook-form input::placeholder,
-.guestbook-form textarea::placeholder {
-    color: #A1918B;
-}
-
-
-.guestbook-form textarea {
-    height: 80px;
-    resize: none;
-}
-
-.guestbook-form button {
-    padding: 12px;
-    border-radius: 8px;
-    border: none;
-    background-color: #1C1C1C;
+.form-button {
+    background-color: #333;
     color: white;
-    font-size: 16px;
-    font-weight: 500;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    pointer-events: auto;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
-.guestbook-messages {
-    width: 343px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.form-button:hover {
+    background-color: #555;
 }
 
 .guestbook-message {
@@ -623,36 +786,33 @@ body {
     background: #FFFFFF;
     border: 1px solid #EAEAEA;
     border-radius: 8px;
-    color: #333;
-    font-size: 16px;
-    margin: 0;
-    word-break: break-all;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #ffffff;
 }
 
-.guestbook-message .author {
-    font-weight: 600;
-    margin-top: 16px;
-    color: #1C1C1C;
-}
-
-.guestbook-message .message {
-    color: #3C3C3C;
-    white-space: pre-wrap;
-    margin-top: 0;
-    margin-bottom: 16px;
-
-}
-
-.guestbook-message .message-header {
+.message-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e0e0e0;
 }
 
-.guestbook-message .timestamp {
+.message-name {
+    font-weight: bold;
+    color: #333;
+}
+
+.message-date {
     font-size: 12px;
-    color: #A1918B;
+    color: #666;
+}
+
+.message-content {
+    color: #555;
+    line-height: 1.5;
 }
 
 .footer {
@@ -661,6 +821,9 @@ body {
     color: #222222;
     font-size: 14px;
     font-weight: 500;
+    
+    display: block;
+    flex-shrink: 0;
 }
 
 .couple-divider {
@@ -738,4 +901,127 @@ body {
 }
 .ticket-divider::after {
     right: -15px;
+}
+
+.calendar-divider {
+    width: 100%;
+    height: 1px;
+    background-color: #9C9C9C;
+    margin-top: 4px;
+}
+
+/* Modal (Lightbox) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 90vw;
+    max-height: 90vh;
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+    color: #bbb;
+    text-decoration: none;
+}
+
+/* 반응형으로 화면이 작을 때도 양쪽 끝까지 채우기 */
+@media (max-width: 768px) {
+    .gallery-item:nth-child(even) {
+        transform: translateY(10px);
+    }
+    
+    .gallery-item:nth-child(odd) {
+        transform: translateY(-5px);
+    }
+    
+    .gallery-grid {
+        gap: 8px;
+        max-width: 100%;
+        padding: 0 10px;
+    }
+}
+
+/* 375px에서 정확한 비율 유지 */
+@media (max-width: 375px) {
+    .header-image {
+        height: 200px; /* 375px일 때 정확한 높이 */
+    }
+}
+
+/* Guestbook Section 제목 스타일 */
+.guestbook-section .section-title {
+    text-align: center;
+    padding: 12px 0;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* 이미지 드래그 방지 */
+img {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+    pointer-events: none;
+}
+
+/* 버튼들과 클릭 가능한 요소들은 상호작용 허용 */
+.action-btn,
+.location-btn,
+.nav-btn,
+.form-button,
+.accordion-header,
+.gallery-item,
+.gift-banner img {
+    pointer-events: auto;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* 방명록 입력 필드는 선택 가능하게 */
+.form-input,
+.form-textarea {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+    pointer-events: auto;
+}
+
+/* 계좌 정보는 복사 가능하게 */
+.account-number,
+.account-holder {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
 }
