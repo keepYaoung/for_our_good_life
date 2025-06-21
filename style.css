@@ -507,8 +507,8 @@ body {
 }
 
 .location-address {
-    color: #1C1C1C;
-    font-size: 16px;
+    color: #3C3C3C;
+    font-size: 14px;
     font-weight: 500;
 }
 
@@ -589,7 +589,7 @@ body {
 
 .section-header {
     text-align: center;
-    padding: 12px 0px
+    padding: 32px 0px
 }
 
 .section-header h2 {
@@ -1070,7 +1070,7 @@ img {
 
 /* Money Section (아코디언) 중앙정렬 */
 .money-section {
-    text-align: center;
+    text-align: left;
 }
 
 .accordion {
@@ -1080,7 +1080,7 @@ img {
 
 /* Guestbook Section 중앙정렬 */
 .guestbook-section {
-    text-align: center;
+    text-align: left;
 }
 
 .guestbook-form {
@@ -1089,6 +1089,7 @@ img {
 }
 
 .guestbook-messages {
+    /* text-align: :left; */
     max-width: 343px;
     margin: 0 auto;
 }
