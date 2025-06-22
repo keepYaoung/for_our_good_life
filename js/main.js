@@ -217,11 +217,16 @@ document.addEventListener("DOMContentLoaded", function() {
         if (stored) {
             try {
                 const parsedData = JSON.parse(stored);
-                weddingData.guestbookMessages = parsedData;
+                // 기존 저장된 데이터가 있으면 사용, 없으면 기본 데이터 사용
+                if (parsedData && parsedData.length > 0) {
+                    weddingData.guestbookMessages = parsedData;
+                }
             } catch (e) {
                 console.error('방명록 데이터 로드 실패:', e);
+                // 에러 발생시 기본 데이터 사용
             }
         }
+        // localStorage에 데이터가 없으면 기본 더미 데이터가 그대로 사용됨
     }
 
     // localStorage에 방명록 데이터 저장하기
