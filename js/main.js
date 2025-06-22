@@ -257,11 +257,10 @@ document.addEventListener("DOMContentLoaded", function() {
     if (submitGuestbookBtn) {
         submitGuestbookBtn.addEventListener('click', function() {
             const name = guestNameInput ? guestNameInput.value.trim() : '';
-            const password = guestPasswordInput ? guestPasswordInput.value.trim() : '';
             const message = guestMessageInput ? guestMessageInput.value.trim() : '';
 
-            if (!name || !password || !message) {
-                alert('모든 필드를 입력해주세요.');
+            if (!name || !message) {
+                alert('이름과 메시지를 입력해주세요.');
                 return;
             }
 
@@ -272,7 +271,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 timestamp: new Date().toISOString()
             };
 
-            weddingData.guestbookMessages.unshift(newMessage); // 최신 메시지를 맨 위에
+            weddingData.guestbookMessages.unshift(newMessage);
 
             // localStorage에 저장
             saveGuestbookToStorage();
