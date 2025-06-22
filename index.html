@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>예준 & 유리, 결혼합니다</title>
+    
+    <!-- Open Graph 메타 태그 -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="예준 & 유리, 결혼합니다">
+    <meta property="og:description" content="2025년 9월 6일 토요일 오전 11시 40분 창원 웨딩의전당 베리타홀에서 결혼합니다">
+    <meta property="og:image" content="img-bg/header_img.png">
+    <meta property="og:url" content="https://your-domain.com">
+    
+    <!-- 일정 관련 메타 태그 -->
+    <meta name="event:start_time" content="2025-09-06T11:40:00+09:00">
+    <meta name="event:end_time" content="2025-09-06T13:00:00+09:00">
+    <meta name="event:location" content="창원 웨딩의전당 베리타홀, 경남 창원시 의창구 팔용동 164-3">
+    
     <link rel="stylesheet" href="style.css?v=1.7">
     <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=24mmefzzwm&submodules=geocoder"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,6 +29,33 @@
     </style>
 </head>
 <body>
+    <!-- 구조화된 데이터 (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Event",
+        "name": "예준 & 유리 결혼식",
+        "description": "신예준과 강유리의 결혼식에 초대합니다",
+        "startDate": "2025-09-06T11:40:00+09:00",
+        "endDate": "2025-09-06T13:00:00+09:00",
+        "location": {
+            "@type": "Place",
+            "name": "창원 웨딩의전당 베리타홀",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "경남 창원시 의창구 팔용동 164-3",
+                "addressLocality": "창원시",
+                "addressRegion": "경남",
+                "addressCountry": "KR"
+            }
+        },
+        "organizer": {
+            "@type": "Person",
+            "name": "신예준 & 강유리"
+        }
+    }
+    </script>
+
     <!-- Header Section - 최상단 섹션 -->
     <div class="header-section">
         <img src="img-bg/header_img.png" alt="Header Image" class="header-img">
