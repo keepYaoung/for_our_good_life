@@ -211,30 +211,40 @@ document.addEventListener("DOMContentLoaded", function() {
     const submitGuestbookBtn = document.getElementById('submit-guestbook');
     const guestbookMessages = document.getElementById('guestbook-messages');
 
-    // localStorage에서 방명록 데이터 불러오기
-    function loadGuestbookFromStorage() {
-        const stored = localStorage.getItem('weddingGuestbook');
-        if (stored) {
-            try {
-                const parsedData = JSON.parse(stored);
-                // 기존 저장된 데이터가 있으면 사용, 없으면 기본 데이터 사용
-                if (parsedData && parsedData.length > 0) {
-                    weddingData.guestbookMessages = parsedData;
+    // JSONBin.io 설정
+    const JSONBIN_API_KEY = '$2a$10$VP0Iei5FRymhqb73hSvhv.riKebKrXO6Lj.DoKrl82BI2x9c/bl6q';
+    const JSONBIN_BIN_ID = '6857aad08960c979a5aee86f';
+
+    // JSONBin에서 방명록 데이터 불러오기
+    async function loadGuestbookFromJSONBin() {
+        try {
+            const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
+                headers: {
+                    'X-Master-Key': JSONBIN_API_KEY
                 }
-            } catch (e) {
-                console.error('방명록 데이터 로드 실패:', e);
-                // 에러 발생시 기본 데이터 사용
-            }
+            });
+            const data = await response.json();
+            weddingData.guestbookMessages = data.record || [];
+            displayGuestbookMessages();
+        } catch (error) {
+            console.error('방명록 로드 실패:', error);
+            displayGuestbookMessages();
         }
-        // localStorage에 데이터가 없으면 기본 더미 데이터가 그대로 사용됨
     }
 
-    // localStorage에 방명록 데이터 저장하기
-    function saveGuestbookToStorage() {
+    // JSONBin에 방명록 데이터 저장하기
+    async function saveGuestbookToJSONBin() {
         try {
-            localStorage.setItem('weddingGuestbook', JSON.stringify(weddingData.guestbookMessages));
-        } catch (e) {
-            console.error('방명록 데이터 저장 실패:', e);
+            await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Master-Key': JSONBIN_API_KEY
+                },
+                body: JSON.stringify(weddingData.guestbookMessages)
+            });
+        } catch (error) {
+            console.error('방명록 저장 실패:', error);
         }
     }
 
@@ -258,11 +268,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // 페이지 로드 시 localStorage에서 방명록 불러오기
-    loadGuestbookFromStorage();
-    
-    // 초기 방명록 표시
-    displayGuestbookMessages();
+    // 페이지 로드 시 JSONBin에서 방명록 불러오기
+    loadGuestbookFromJSONBin();
     
     // --- Navigation Links ---
     const navButtons = document.querySelectorAll('.nav-btn');
@@ -350,5 +357,38 @@ document.addEventListener("DOMContentLoaded", function() {
     if (instagramLink) {
         instagramLink.href = "https://www.instagram.com/sey_yeah.311/";
         instagramLink.target = "_blank";
+    }
+
+    // 방명록 메시지 추가
+    if (submitGuestbookBtn) {
+        submitGuestbookBtn.addEventListener('click', async function() {
+            const name = guestNameInput ? guestNameInput.value.trim() : '';
+            const message = guestMessageInput ? guestMessageInput.value.trim() : '';
+
+            if (!name || !message) {
+                alert('이름과 메시지를 입력해주세요.');
+                return;
+            }
+
+            const newMessage = {
+                name: name,
+                message: message,
+                timestamp: new Date().toISOString()
+            };
+
+            weddingData.guestbookMessages.unshift(newMessage);
+
+            // JSONBin에 저장
+            await saveGuestbookToJSONBin();
+
+            // 입력 필드 초기화
+            if (guestNameInput) guestNameInput.value = '';
+            if (guestMessageInput) guestMessageInput.value = '';
+
+            // 방명록 다시 표시
+            displayGuestbookMessages();
+
+            alert('방명록이 등록되었습니다!');
+        });
     }
 });

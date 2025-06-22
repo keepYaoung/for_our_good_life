@@ -27,6 +27,10 @@
         touch-action: manipulation;
       }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        emailjs.init('your_public_key'); // EmailJS 공개 키
+    </script>
 </head>
 <body>
     <!-- 구조화된 데이터 (JSON-LD) -->
@@ -214,20 +218,14 @@
         <!-- Guestbook -->
         <div class="guestbook-section">
             <div class="section-title">방명록</div>
-            
-            <form name="guestbook" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="guestbook-form">
-                <input type="hidden" name="form-name" value="guestbook" />
-                <p style="display: none;">
-                    <label>Don't fill this out if you're human: <input name="bot-field" /></label>
-                </p>
-                
-                <input type="text" name="name" id="guest-name" placeholder="이름" class="form-input" required>
-                <textarea name="message" id="guest-message" placeholder="축하 메시지를 남겨주세요" class="form-textarea" required></textarea>
-                <button type="submit" id="submit-guestbook" class="form-button">글 남기기</button>
-            </form>
-            
-            <div id="guestbook-messages" class="guestbook-messages">
-            </div>
+            <iframe src="https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform?embedded=true" 
+                    width="100%" 
+                    height="500" 
+                    frameborder="0" 
+                    marginheight="0" 
+                    marginwidth="0">
+                로딩 중...
+            </iframe>
         </div>
 
         <!-- Gift -->
