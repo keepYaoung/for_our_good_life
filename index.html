@@ -209,25 +209,15 @@
         <div class="guestbook-section">
             <div class="section-title">방명록</div>
             
-            <!-- Netlify Forms용 숨겨진 폼 (봇 방지용) -->
-            <form name="guestbook" netlify netlify-honeypot="bot-field" hidden>
-                <input type="text" name="name" />
-                <input type="text" name="message" />
-            </form>
-            
-            <!-- 실제 보이는 폼 -->
-            <form name="guestbook" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="guestbook-form">
+            <!-- Netlify Forms용 form -->
+            <form name="guestbook" method="POST" data-netlify="true" class="guestbook-form">
                 <input type="hidden" name="form-name" value="guestbook" />
-                <p style="display: none;">
-                    <label>Don't fill this out: <input name="bot-field" /></label>
-                </p>
                 
                 <div class="form-row">
-                    <input type="text" name="name" placeholder="이름" class="form-input" required>
-                    <input type="password" name="password" placeholder="비밀번호" class="form-input">
+                    <input type="text" name="name" id="guest-name" placeholder="이름" class="form-input" required>
                 </div>
-                <textarea name="message" placeholder="축하 메시지를 남겨주세요" class="form-textarea" required></textarea>
-                <button type="submit" class="form-button">글 남기기</button>
+                <textarea name="message" id="guest-message" placeholder="축하 메시지를 남겨주세요" class="form-textarea" required></textarea>
+                <button type="submit" id="submit-guestbook" class="form-button">글 남기기</button>
             </form>
             
             <div id="guestbook-messages" class="guestbook-messages">

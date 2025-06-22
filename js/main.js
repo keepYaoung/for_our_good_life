@@ -258,38 +258,34 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // 방명록 메시지 추가
-    if (submitGuestbookBtn) {
-        submitGuestbookBtn.addEventListener('click', function() {
-            const name = guestNameInput ? guestNameInput.value.trim() : '';
-            const message = guestMessageInput ? guestMessageInput.value.trim() : '';
+    // Netlify Forms 처리
+    const guestbookForm = document.querySelector('form[name="guestbook"]');
+    if (guestbookForm) {
+        guestbookForm.addEventListener('submit', function(e) {
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                e.preventDefault();
+                
+                const name = document.getElementById('guest-name').value.trim();
+                const message = document.getElementById('guest-message').value.trim();
+                
+                if (!name || !message) {
+                    alert('이름과 메시지를 입력해주세요.');
+                    return;
+                }
 
-            if (!name || !message) {
-                alert('이름과 메시지를 입력해주세요.');
-                return;
+                const newMessage = {
+                    name: name,
+                    message: message,
+                    timestamp: new Date().toISOString()
+                };
+
+                weddingData.guestbookMessages.unshift(newMessage);
+                saveGuestbookToStorage();
+                displayGuestbookMessages();
+                
+                guestbookForm.reset();
+                alert('방명록이 등록되었습니다!');
             }
-
-            // 새 메시지 추가
-            const newMessage = {
-                name: name,
-                message: message,
-                timestamp: new Date().toISOString()
-            };
-
-            weddingData.guestbookMessages.unshift(newMessage);
-
-            // localStorage에 저장
-            saveGuestbookToStorage();
-
-            // 입력 필드 초기화
-            if (guestNameInput) guestNameInput.value = '';
-            if (guestPasswordInput) guestPasswordInput.value = '';
-            if (guestMessageInput) guestMessageInput.value = '';
-
-            // 방명록 다시 표시
-            displayGuestbookMessages();
-
-            alert('방명록이 등록되었습니다!');
         });
     }
 
@@ -387,35 +383,6 @@ document.addEventListener("DOMContentLoaded", function() {
         instagramLink.target = "_blank";
     }
 
-    // 환경에 따른 방명록 처리
-    const isNetlify = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
-
-    if (isNetlify) {
-        // Netlify 환경에서만 Forms 사용
-        const netlifyForm = document.querySelector('form[name="guestbook"]');
-        if (netlifyForm) {
-            netlifyForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const formData = new FormData(netlifyForm);
-                
-                fetch('/', {
-                    method: 'POST',
-                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    body: new URLSearchParams(formData).toString()
-                })
-                .then(() => {
-                    alert('방명록이 등록되었습니다!');
-                    netlifyForm.reset();
-                })
-                .catch((error) => {
-                    alert('등록 중 오류가 발생했습니다.');
-                    console.error('Error:', error);
-                });
-            });
-        }
-    } else {
-        // 로컬 환경에서는 기존 방식 사용
-        // 기존 방명록 코드 그대로 유지
-    }
+    // Netlify Forms는 배포 후에만 활성화
+    // 로컬에서는 위의 기존 방식만 사용
 });
