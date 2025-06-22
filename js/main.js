@@ -213,9 +213,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // localStorage에서 방명록 데이터 불러오기
     function loadGuestbookFromStorage() {
-        // 임시: 기존 localStorage 초기화 (배포 후 이 라인은 제거해야 함)
-        localStorage.removeItem('weddingGuestbook');
-        
         const stored = localStorage.getItem('weddingGuestbook');
         if (stored) {
             try {
