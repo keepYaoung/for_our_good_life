@@ -258,37 +258,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Netlify Forms 처리
-    const guestbookForm = document.querySelector('form[name="guestbook"]');
-    if (guestbookForm) {
-        guestbookForm.addEventListener('submit', function(e) {
-            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-                e.preventDefault();
-                
-                const name = document.getElementById('guest-name').value.trim();
-                const message = document.getElementById('guest-message').value.trim();
-                
-                if (!name || !message) {
-                    alert('이름과 메시지를 입력해주세요.');
-                    return;
-                }
-
-                const newMessage = {
-                    name: name,
-                    message: message,
-                    timestamp: new Date().toISOString()
-                };
-
-                weddingData.guestbookMessages.unshift(newMessage);
-                saveGuestbookToStorage();
-                displayGuestbookMessages();
-                
-                guestbookForm.reset();
-                alert('방명록이 등록되었습니다!');
-            }
-        });
-    }
-
     // 페이지 로드 시 localStorage에서 방명록 불러오기
     loadGuestbookFromStorage();
     
@@ -382,7 +351,4 @@ document.addEventListener("DOMContentLoaded", function() {
         instagramLink.href = "https://www.instagram.com/sey_yeah.311/";
         instagramLink.target = "_blank";
     }
-
-    // Netlify Forms는 배포 후에만 활성화
-    // 로컬에서는 위의 기존 방식만 사용
 });

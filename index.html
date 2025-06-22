@@ -205,17 +205,23 @@
             </div>
         </div>
 
+        <!-- Netlify Forms 인식용 숨겨진 폼 -->
+        <form name="guestbook" netlify netlify-honeypot="bot-field" hidden>
+            <input type="text" name="name" />
+            <textarea name="message"></textarea>
+        </form>
+
         <!-- Guestbook -->
         <div class="guestbook-section">
             <div class="section-title">방명록</div>
             
-            <!-- Netlify Forms용 form -->
-            <form name="guestbook" method="POST" data-netlify="true" class="guestbook-form">
+            <form name="guestbook" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="guestbook-form">
                 <input type="hidden" name="form-name" value="guestbook" />
+                <p style="display: none;">
+                    <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+                </p>
                 
-                <div class="form-row">
-                    <input type="text" name="name" id="guest-name" placeholder="이름" class="form-input" required>
-                </div>
+                <input type="text" name="name" id="guest-name" placeholder="이름" class="form-input" required>
                 <textarea name="message" id="guest-message" placeholder="축하 메시지를 남겨주세요" class="form-textarea" required></textarea>
                 <button type="submit" id="submit-guestbook" class="form-button">글 남기기</button>
             </form>
