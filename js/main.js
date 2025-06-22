@@ -211,7 +211,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const submitGuestbookBtn = document.getElementById('submit-guestbook');
     const guestbookMessages = document.getElementById('guestbook-messages');
 
-    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbygcsN_6HJpMFdQMo4QAhaKF4yYhdoDQ_QlIbbOWbX7PnRpovi0T1yTaCph1jCwfqb2/exec';
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw4-bDk5_GEyXVGqawb8XKYx2j1w7ygrsSL5vLdYX9AOv77PO0m1vatoDoO612Z9Edf/exec';
 
     // Google Sheets에서 방명록 데이터 불러오기
     async function loadGuestbookFromSheets() {
