@@ -204,32 +204,44 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // --- Guestbook (방명록) ---
+    // --- Guestbook (방명록) - Google Sheets 연동 ---
     const guestNameInput = document.getElementById('guest-name');
     const guestPasswordInput = document.getElementById('guest-password');
     const guestMessageInput = document.getElementById('guest-message');
     const submitGuestbookBtn = document.getElementById('submit-guestbook');
     const guestbookMessages = document.getElementById('guestbook-messages');
 
-    // localStorage에서 방명록 데이터 불러오기
-    function loadGuestbookFromStorage() {
-        const stored = localStorage.getItem('weddingGuestbook');
-        if (stored) {
-            try {
-                const parsedData = JSON.parse(stored);
-                weddingData.guestbookMessages = parsedData;
-            } catch (e) {
-                console.error('방명록 데이터 로드 실패:', e);
-            }
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbygcsN_6HJpMFdQMo4QAhaKF4yYhdoDQ_QlIbbOWbX7PnRpovi0T1yTaCph1jCwfqb2/exec';
+
+    // Google Sheets에서 방명록 데이터 불러오기
+    async function loadGuestbookFromSheets() {
+        try {
+            const response = await fetch(GOOGLE_SCRIPT_URL);
+            const messages = await response.json();
+            weddingData.guestbookMessages = messages;
+            displayGuestbookMessages();
+        } catch (error) {
+            console.error('방명록 로드 실패:', error);
+            // 실패 시 기본 데이터 사용
+            displayGuestbookMessages();
         }
     }
 
-    // localStorage에 방명록 데이터 저장하기
-    function saveGuestbookToStorage() {
+    // Google Sheets에 방명록 데이터 저장하기
+    async function saveGuestbookToSheets(messageData) {
         try {
-            localStorage.setItem('weddingGuestbook', JSON.stringify(weddingData.guestbookMessages));
-        } catch (e) {
-            console.error('방명록 데이터 저장 실패:', e);
+            const response = await fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(messageData)
+            });
+            const result = await response.json();
+            return result.success;
+        } catch (error) {
+            console.error('방명록 저장 실패:', error);
+            return false;
         }
     }
 
@@ -255,7 +267,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // 방명록 메시지 추가
     if (submitGuestbookBtn) {
-        submitGuestbookBtn.addEventListener('click', function() {
+        submitGuestbookBtn.addEventListener('click', async function() {
             const name = guestNameInput ? guestNameInput.value.trim() : '';
             const message = guestMessageInput ? guestMessageInput.value.trim() : '';
 
@@ -264,35 +276,33 @@ document.addEventListener("DOMContentLoaded", function() {
                 return;
             }
 
-            // 새 메시지 추가
+            // 새 메시지 데이터
             const newMessage = {
                 name: name,
-                message: message,
-                timestamp: new Date().toISOString()
+                message: message
             };
 
-            weddingData.guestbookMessages.unshift(newMessage);
+            // Google Sheets에 저장
+            const success = await saveGuestbookToSheets(newMessage);
+            
+            if (success) {
+                // 입력 필드 초기화
+                if (guestNameInput) guestNameInput.value = '';
+                if (guestPasswordInput) guestPasswordInput.value = '';
+                if (guestMessageInput) guestMessageInput.value = '';
 
-            // localStorage에 저장
-            saveGuestbookToStorage();
+                // 방명록 다시 로드
+                await loadGuestbookFromSheets();
 
-            // 입력 필드 초기화
-            if (guestNameInput) guestNameInput.value = '';
-            if (guestPasswordInput) guestPasswordInput.value = '';
-            if (guestMessageInput) guestMessageInput.value = '';
-
-            // 방명록 다시 표시
-            displayGuestbookMessages();
-
-            alert('방명록이 등록되었습니다!');
+                alert('방명록이 등록되었습니다!');
+            } else {
+                alert('방명록 등록에 실패했습니다. 다시 시도해주세요.');
+            }
         });
     }
 
-    // 페이지 로드 시 localStorage에서 방명록 불러오기
-    loadGuestbookFromStorage();
-    
-    // 초기 방명록 표시
-    displayGuestbookMessages();
+    // 페이지 로드 시 Google Sheets에서 방명록 불러오기
+    loadGuestbookFromSheets();
     
     // --- Navigation Links ---
     const navButtons = document.querySelectorAll('.nav-btn');
