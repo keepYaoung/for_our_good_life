@@ -386,4 +386,36 @@ document.addEventListener("DOMContentLoaded", function() {
         instagramLink.href = "https://www.instagram.com/sey_yeah.311/";
         instagramLink.target = "_blank";
     }
+
+    // 환경에 따른 방명록 처리
+    const isNetlify = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+
+    if (isNetlify) {
+        // Netlify 환경에서만 Forms 사용
+        const netlifyForm = document.querySelector('form[name="guestbook"]');
+        if (netlifyForm) {
+            netlifyForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(netlifyForm);
+                
+                fetch('/', {
+                    method: 'POST',
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams(formData).toString()
+                })
+                .then(() => {
+                    alert('방명록이 등록되었습니다!');
+                    netlifyForm.reset();
+                })
+                .catch((error) => {
+                    alert('등록 중 오류가 발생했습니다.');
+                    console.error('Error:', error);
+                });
+            });
+        }
+    } else {
+        // 로컬 환경에서는 기존 방식 사용
+        // 기존 방명록 코드 그대로 유지
+    }
 });
