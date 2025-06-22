@@ -51,12 +51,10 @@ const weddingData = {
         ]
     },
     guestbookMessages: [
-        { name: "김동희", message: "오래오래 건강하고!", timestamp: "2024-06-08T10:00:00Z"},
-        { name: "김수미", message: "행복혀라~~~", timestamp: "2024-06-09T11:30:00Z"},
-        { name: "이호준", message: "서로 아끼고 사랑하며 행복해!.", timestamp: "2024-06-10T15:45:00Z"}
+        // 기존 메시지들 모두 제거
     ],
     footer: {
-        madeBy: "Made by<br><span style='margin-top: 4px; display: block;'><strong>sey_yeah.311</strong></span>",
+        madeBy: "Made by<br><strong>sey_yeah.311</strong>",
         instagram: "https://www.instagram.com/sey_yeah.311/"
     }
 }; 
