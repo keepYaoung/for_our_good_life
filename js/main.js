@@ -1,42 +1,4 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // --- Main Info ---
-    const groomNameEl = document.getElementById("groom-name");
-    if (groomNameEl) groomNameEl.textContent = weddingData.groom.name;
-
-    const groomBirthEl = document.getElementById("groom-birth");
-    if (groomBirthEl) groomBirthEl.textContent = weddingData.groom.birth;
-
-    const brideNameEl = document.getElementById("bride-name");
-    if (brideNameEl) brideNameEl.textContent = weddingData.bride.name;
-
-    const brideBirthEl = document.getElementById("bride-birth");
-    if (brideBirthEl) brideBirthEl.textContent = weddingData.bride.birth;
-
-    // Wedding Hall Info
-    const weddingHallNameEl = document.getElementById("wedding-hall-name");
-    if (weddingHallNameEl) weddingHallNameEl.textContent = weddingData.weddingHall.name;
-
-    const weddingHallTypeEl = document.getElementById("wedding-hall-type");
-    if (weddingHallTypeEl) weddingHallTypeEl.textContent = weddingData.weddingHall.type;
-
-    const weddingDateEl = document.getElementById("wedding-date");
-    if (weddingDateEl) weddingDateEl.textContent = weddingData.weddingHall.date;
-
-    const weddingTimeEl = document.getElementById("wedding-time");
-    if (weddingTimeEl) weddingTimeEl.textContent = weddingData.weddingHall.time;
-
-    const weddingLocationEl = document.getElementById("wedding-location");
-    if (weddingLocationEl) weddingLocationEl.textContent = weddingData.weddingHall.location;
-
-    const weddingHallEl = document.getElementById("wedding-hall");
-    if (weddingHallEl) weddingHallEl.textContent = weddingData.weddingHall.hall;
-
-    const remainingSeatsEl = document.getElementById("remaining-seats");
-    if (remainingSeatsEl) remainingSeatsEl.textContent = weddingData.weddingHall.remainingSeats;
-
-    const bookingStatusEl = document.getElementById("booking-status");
-    if (bookingStatusEl) bookingStatusEl.textContent = weddingData.weddingHall.bookingStatus;
-
     // --- Contact Info ---
     const contactGroomEl = document.querySelector("#contact-groom .person-name");
     if (contactGroomEl) contactGroomEl.textContent = weddingData.groom.name;
@@ -59,16 +21,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Parents contact - 이름만 표시 (역할 제거)
     const groomFatherEl = document.querySelector("#contact-groom-father .person-name");
-    if (groomFatherEl) groomFatherEl.textContent = weddingData.groom.father; // "아버지" 제거
+    if (groomFatherEl) groomFatherEl.textContent = weddingData.groom.father;
 
     const groomMotherEl = document.querySelector("#contact-groom-mother .person-name");
-    if (groomMotherEl) groomMotherEl.textContent = weddingData.groom.mother; // "어머니" 제거
+    if (groomMotherEl) groomMotherEl.textContent = weddingData.groom.mother;
 
     const brideFatherEl = document.querySelector("#contact-bride-father .person-name");
-    if (brideFatherEl) brideFatherEl.textContent = weddingData.bride.father; // "아버지" 제거
+    if (brideFatherEl) brideFatherEl.textContent = weddingData.bride.father;
 
     const brideMotherEl = document.querySelector("#contact-bride-mother .person-name");
-    if (brideMotherEl) brideMotherEl.textContent = weddingData.bride.mother; // "어머니" 제거
+    if (brideMotherEl) brideMotherEl.textContent = weddingData.bride.mother;
 
     // Parents contact links
     const groomFatherCallEl = document.getElementById("groom-father-call");
@@ -104,9 +66,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const locationAddress2El = document.getElementById("location-address2");
     if (locationAddress2El) locationAddress2El.textContent = weddingData.location.address2;
-
-    const locationCallEl = document.getElementById("location-call");
-    if (locationCallEl) locationCallEl.href = `tel:${weddingData.location.phone}`;
 
     // --- Gift Banner ---
     const giftBanner = document.querySelector('.gift-banner');
@@ -206,45 +165,72 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // --- Guestbook (방명록) ---
     const guestNameInput = document.getElementById('guest-name');
-    const guestPasswordInput = document.getElementById('guest-password');
     const guestMessageInput = document.getElementById('guest-message');
     const submitGuestbookBtn = document.getElementById('submit-guestbook');
     const guestbookMessages = document.getElementById('guestbook-messages');
 
-    // JSONBin.io 설정
-    const JSONBIN_API_KEY = '$2a$10$VP0Iei5FRymhqb73hSvhv.riKebKrXO6Lj.DoKrl82BI2x9c/bl6q';
-    const JSONBIN_BIN_ID = '6857aad08960c979a5aee86f';
-
-    // JSONBin에서 방명록 데이터 불러오기
-    async function loadGuestbookFromJSONBin() {
-        try {
-            const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
-                headers: {
-                    'X-Master-Key': JSONBIN_API_KEY
-                }
-            });
-            const data = await response.json();
-            weddingData.guestbookMessages = data.record || [];
+    // 방명록 제출 이벤트 리스너 추가
+    if (submitGuestbookBtn) {
+        submitGuestbookBtn.addEventListener('click', function() {
+            const name = guestNameInput ? guestNameInput.value.trim() : '';
+            const message = guestMessageInput ? guestMessageInput.value.trim() : '';
+            
+            if (!name || !message) {
+                alert('이름과 메시지를 모두 입력해주세요.');
+                return;
+            }
+            
+            // 새 방명록 메시지 추가
+            const newMessage = {
+                name: name,
+                message: message,
+                timestamp: new Date().toISOString()
+            };
+            
+            // weddingData에 메시지 추가
+            if (!weddingData.guestbookMessages) {
+                weddingData.guestbookMessages = [];
+            }
+            weddingData.guestbookMessages.unshift(newMessage); // 최신 메시지를 맨 위에 추가
+            
+            // localStorage에 저장
+            saveGuestbookToStorage();
+            
+            // 화면에 표시
             displayGuestbookMessages();
-        } catch (error) {
-            console.error('방명록 로드 실패:', error);
-            displayGuestbookMessages();
-        }
+            
+            // 입력 필드 초기화
+            if (guestNameInput) guestNameInput.value = '';
+            if (guestMessageInput) guestMessageInput.value = '';
+            
+            alert('방명록이 등록되었습니다!');
+        });
     }
 
-    // JSONBin에 방명록 데이터 저장하기
-    async function saveGuestbookToJSONBin() {
+    // localStorage에서 방명록 데이터 불러오기
+    function loadGuestbookFromStorage() {
+        const stored = localStorage.getItem('weddingGuestbook');
+        if (stored) {
+            try {
+                const parsedData = JSON.parse(stored);
+                // 기존 저장된 데이터가 있으면 사용, 없으면 기본 데이터 사용
+                if (parsedData && parsedData.length > 0) {
+                    weddingData.guestbookMessages = parsedData;
+                }
+            } catch (e) {
+                console.error('방명록 데이터 로드 실패:', e);
+                // 에러 발생시 기본 데이터 사용
+            }
+        }
+        // localStorage에 데이터가 없으면 기본 더미 데이터가 그대로 사용됨
+    }
+
+    // localStorage에 방명록 데이터 저장하기
+    function saveGuestbookToStorage() {
         try {
-            await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Master-Key': JSONBIN_API_KEY
-                },
-                body: JSON.stringify(weddingData.guestbookMessages)
-            });
-        } catch (error) {
-            console.error('방명록 저장 실패:', error);
+            localStorage.setItem('weddingGuestbook', JSON.stringify(weddingData.guestbookMessages));
+        } catch (e) {
+            console.error('방명록 데이터 저장 실패:', e);
         }
     }
 
@@ -268,8 +254,11 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // 페이지 로드 시 JSONBin에서 방명록 불러오기
-    loadGuestbookFromJSONBin();
+    // 페이지 로드 시 localStorage에서 방명록 불러오기
+    loadGuestbookFromStorage();
+    
+    // 초기 방명록 표시
+    displayGuestbookMessages();
     
     // --- Navigation Links ---
     const navButtons = document.querySelectorAll('.nav-btn');
@@ -357,38 +346,5 @@ document.addEventListener("DOMContentLoaded", function() {
     if (instagramLink) {
         instagramLink.href = "https://www.instagram.com/sey_yeah.311/";
         instagramLink.target = "_blank";
-    }
-
-    // 방명록 메시지 추가
-    if (submitGuestbookBtn) {
-        submitGuestbookBtn.addEventListener('click', async function() {
-            const name = guestNameInput ? guestNameInput.value.trim() : '';
-            const message = guestMessageInput ? guestMessageInput.value.trim() : '';
-
-            if (!name || !message) {
-                alert('이름과 메시지를 입력해주세요.');
-                return;
-            }
-
-            const newMessage = {
-                name: name,
-                message: message,
-                timestamp: new Date().toISOString()
-            };
-
-            weddingData.guestbookMessages.unshift(newMessage);
-
-            // JSONBin에 저장
-            await saveGuestbookToJSONBin();
-
-            // 입력 필드 초기화
-            if (guestNameInput) guestNameInput.value = '';
-            if (guestMessageInput) guestMessageInput.value = '';
-
-            // 방명록 다시 표시
-            displayGuestbookMessages();
-
-            alert('방명록이 등록되었습니다!');
-        });
     }
 });

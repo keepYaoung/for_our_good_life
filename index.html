@@ -17,7 +17,7 @@
     <meta name="event:end_time" content="2025-09-06T13:00:00+09:00">
     <meta name="event:location" content="창원 웨딩의전당 베리타홀, 경남 창원시 의창구 팔용동 164-3">
     
-    <link rel="stylesheet" href="style.css?v=1.7">
+    <link rel="stylesheet" href="style.css?v=1.8">
     <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=24mmefzzwm&submodules=geocoder"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,10 +27,6 @@
         touch-action: manipulation;
       }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script>
-        emailjs.init('your_public_key'); // EmailJS 공개 키
-    </script>
 </head>
 <body>
     <!-- 구조화된 데이터 (JSON-LD) -->
@@ -67,9 +63,6 @@
     
     <div class="bg-image-top"></div>
     <div class="container">
-        <!-- Main Info -->
-        
-
         <!-- Contact -->
         <div class="contact-section">
             <div class="contact-group">
@@ -128,8 +121,6 @@
             </div>
         </div>
 
-       
-
         <!-- Gallery -->
         <div class="gallery-section">
             <div class="gallery-grid">
@@ -144,8 +135,6 @@
                 <div id="location-name" class="location-name"></div>
                 <div id="location-address1" class="location-address"></div>
                 <div id="location-address2" class="location-address"></div>
-                
-                </div>
             </div>
             <div id="map" class="map-container">
                 <!-- map image will be here -->
@@ -156,8 +145,6 @@
                 <a href="#" class="nav-btn">네이버지도</a>
             </div>
         </div>
-
-        
 
         <!-- Congratulatory Money -->
         <div class="money-section">
@@ -209,23 +196,18 @@
             </div>
         </div>
 
-        <!-- Netlify Forms 인식용 숨겨진 폼 -->
-        <form name="guestbook" netlify netlify-honeypot="bot-field" hidden>
-            <input type="text" name="name" />
-            <textarea name="message"></textarea>
-        </form>
-
         <!-- Guestbook -->
         <div class="guestbook-section">
             <div class="section-title">방명록</div>
-            <iframe src="https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform?embedded=true" 
-                    width="100%" 
-                    height="500" 
-                    frameborder="0" 
-                    marginheight="0" 
-                    marginwidth="0">
-                로딩 중...
-            </iframe>
+            
+            <div class="guestbook-form">
+                <input type="text" id="guest-name" placeholder="이름" class="form-input" required>
+                <textarea id="guest-message" placeholder="축하 메시지를 남겨주세요" class="form-textarea" required></textarea>
+                <button type="button" id="submit-guestbook" class="form-button">글 남기기</button>
+            </div>
+            
+            <div id="guestbook-messages" class="guestbook-messages">
+            </div>
         </div>
 
         <!-- Gift -->
@@ -260,8 +242,8 @@
         <img class="modal-content" id="modal-image">
     </div>
 
-    <script src="js/data.js?v=1.7"></script>
-    <script src="js/main.js?v=1.7"></script>
+    <script src="js/data.js?v=1.8"></script>
+    <script src="js/main.js?v=1.8"></script>
     <script>
     // 더블 클릭(더블 탭) 줌 방지
     window.addEventListener('dblclick', function(e) {
