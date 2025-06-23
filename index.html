@@ -19,6 +19,19 @@
     
     <link rel="stylesheet" href="style.css?v=1.8">
     <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=24mmefzzwm&submodules=geocoder"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+    <script src="js/data.js?v=1.9"></script>
+    <script src="js/main.js?v=1.9"></script>
+    <script src="js/guestbook.js?v=1.0"></script>
+
+    <script>
+  // 더블 클릭(더블 탭) 줌 방지
+  window.addEventListener('dblclick', function(e) {
+    e.preventDefault();
+  }, { passive: false });
+</script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pretendard+Variable:wght@400;500;600&display=swap" rel="stylesheet">
@@ -242,8 +255,6 @@
         <img class="modal-content" id="modal-image">
     </div>
 
-    <script src="js/data.js?v=1.8"></script>
-    <script src="js/main.js?v=1.8"></script>
     <script>
     // 더블 클릭(더블 탭) 줌 방지
     window.addEventListener('dblclick', function(e) {

@@ -24,12 +24,6 @@ const weddingData = {
         phone: "055-123-4567",
     },
     giftBannerImage: "img/wreath_banner_img.png",
-    guestbookMessages: [
-        { name: "민지", message: "와 진짜 예쁘다!! 행복하게 잘 살아💕", timestamp: "2024-12-20T14:30:00Z"},
-        { name: "준호", message: "형 드디어 결혼하네 ㅋㅋ 신부님 너무 이쁘세요! 축하해요~", timestamp: "2024-12-20T15:15:00Z"},
-        { name: "수연", message: "언니 결혼 진심 축하해!! 웨딩드레스 너무 예뻐서 눈물남 ㅠㅠ", timestamp: "2024-12-20T16:45:00Z"},
-        { name: "태현", message: "두 분 정말 잘 어울려요! 오래오래 행복하세요 👏", timestamp: "2024-12-20T17:20:00Z"}
-    ],
     footer: {
         madeBy: "Made by<br><span style='margin-top: 4px; display: block;'><strong>sey_yeah.311</strong></span>",
         instagram: "https://www.instagram.com/sey_yeah.311/"
