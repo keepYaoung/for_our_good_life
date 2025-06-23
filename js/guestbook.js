@@ -27,69 +27,30 @@ function formatDate(ts) {
   return `${yyyy}.${mm}.${dd} ${hh}:${min}`;
 }
 
-let guestbookMessages = [];
-let currentPage = 1;
-const pageSize = 10;
-
-function renderGuestbookPage() {
-  const container = document.getElementById("guestbook-messages");
-  container.innerHTML = "";
-
-  console.log("전체 메시지 수:", guestbookMessages.length);
-  console.log("guestbookMessages:", guestbookMessages);
-
-  const start = (currentPage - 1) * pageSize;
-  const end = start + pageSize;
-  const pageMessages = guestbookMessages.slice(start, end);
-
-  console.log("이 페이지에 표시될 메시지:", pageMessages);
-
-  pageMessages.forEach(entry => {
-    const msgEl = document.createElement("div");
-    msgEl.className = "guestbook-entry";
-    msgEl.innerHTML = `
-      <div class="message-header">
-        <span class="message-name">${entry.name}</span>
-        <span class="message-date">${formatDate(entry.timestamp)}</span>
-      </div>
-      <div class="message-content">${entry.message}</div>
-    `;
-    container.appendChild(msgEl);
-  });
-
-  // 페이지네이션 버튼
-  if (guestbookMessages.length > pageSize) {
-    const pagination = document.createElement("div");
-    pagination.className = "guestbook-pagination";
-    pagination.innerHTML = `
-      <button id="prev-page" ${currentPage === 1 ? "disabled" : ""}>이전</button>
-      <span style="margin:0 8px;">${currentPage} / ${Math.ceil(guestbookMessages.length / pageSize)}</span>
-      <button id="next-page" ${end >= guestbookMessages.length ? "disabled" : ""}>다음</button>
-    `;
-    container.appendChild(pagination);
-
-    document.getElementById("prev-page").onclick = () => {
-      if (currentPage > 1) {
-        currentPage--;
-        renderGuestbookPage();
-      }
-    };
-    document.getElementById("next-page").onclick = () => {
-      if (end < guestbookMessages.length) {
-        currentPage++;
-        renderGuestbookPage();
-      }
-    };
-  }
-}
-
 function loadGuestbookMessages() {
   db.ref('guestbook').once('value').then(snapshot => {
-    guestbookMessages = [];
-    snapshot.forEach(child => guestbookMessages.push(child.val()));
-    guestbookMessages.sort((a, b) => b.timestamp - a.timestamp);
-    currentPage = 1;
-    renderGuestbookPage();
+    console.log('snapshot.val():', snapshot.val());
+    const messages = [];
+    snapshot.forEach(child => {
+      console.log('child.key:', child.key, 'child.val():', child.val());
+      messages.push(child.val());
+    });
+    console.log('최종 messages:', messages);
+    messages.sort((a, b) => b.timestamp - a.timestamp);
+    const container = document.getElementById("guestbook-messages");
+    container.innerHTML = "";
+    messages.forEach(entry => {
+      const msgEl = document.createElement("div");
+      msgEl.className = "guestbook-entry";
+      msgEl.innerHTML = `
+        <div class="message-header">
+          <span class="message-name">${entry.name}</span>
+          <span class="message-date">${formatDate(entry.timestamp)}</span>
+        </div>
+        <div class="message-content">${entry.message}</div>
+      `;
+      container.appendChild(msgEl);
+    });
   });
 }
 
@@ -100,7 +61,11 @@ function submitGuestbookMessage() {
     alert("이름과 메시지를 모두 입력해주세요!");
     return;
   }
-  db.ref('guestbook').push({ name, message, timestamp: Date.now() })
+  db.ref('guestbook').push({
+    name: name,
+    message: message,
+    timestamp: Date.now()
+  })
     .then(() => {
       alert("방명록이 등록되었어요! 🎉");
       document.getElementById("guest-name").value = "";
